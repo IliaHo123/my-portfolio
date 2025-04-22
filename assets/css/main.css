@@ -44,11 +44,11 @@
   --surface-color: #ffffff;
 }
 
-.dark-background {
+-background {
   --background-color: #060606;
   --default-color: #ffffff;
   --heading-color: #ffffff;
-  --surface-color: #252525;
+  --surface-color: .dark#252525;
   --contrast-color: #ffffff;
 }
 
@@ -675,21 +675,14 @@ section,
 }
 
 .hero img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
+  display: none;
 }
 
-.hero:before {
-  content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 30%);
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+.hero {
+  background: linear-gradient(270deg, #0a0a0a, #2c1f2e, #1f1f1f);
+  background-size: 600% 600%;
+  animation: gradientMove 10s ease infinite;
+  position: relative;
 }
 
 .hero .container {
@@ -698,10 +691,12 @@ section,
 }
 
 .hero h2 {
-  margin: 0;
-  font-size: 64px;
-  font-weight: 700;
+  font-family: "Kurale", serif;
+  font-size: 100px; /* להגדיל */
+  color: #ffffff;  /* לבן */
+  font-weight: 800; /* שיהיה עבה ובולט */
 }
+
 
 .hero p {
   margin: 5px 0 0 0;
@@ -723,6 +718,7 @@ section,
   }
 }
 
+
 /*--------------------------------------------------------------
 # About Section
 --------------------------------------------------------------*/
@@ -732,45 +728,67 @@ section,
   padding: 30px;
 }
 
-.about .skills-content h5 {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 30px 0 15px 0;
-}
-
-.about .progress {
-  height: 36px;
-  display: block;
-  background: none;
-  border-radius: 0;
-  margin-top: 15px;
-}
-
-.about .progress .skill {
-  color: var(--default-color);
+.skills-list {
+  list-style: none;
   padding: 0;
-  margin: 0 0 6px 0;
-  text-transform: uppercase;
-  display: block;
-  font-weight: 600;
+}
+
+.skills-list li {
+  padding: 8px 0;
+  font-size: 18px;  /* כמו ה-About */
+  font-weight: 400;  /* פחות כבד */
+  position: relative;
+  padding-left: 25px;
+  font-family: var(--default-font); /* לוודא שזה הפונט הנכון */
+  color: var(--default-color); /* צבע טקסט */
+}
+
+.skills-list li::before {
+  content: "✔"; /* סימן וי */
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.skills-list li:nth-child(odd) {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px 25px;
+}
+
+.skills-list li:nth-child(even) {
+  background-color: #eeeeee;
+  border-radius: 8px;
+  padding: 10px 25px;
+}
+
+.skills-list li:hover {
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  color: #fff;
+  transform: translateX(5px);
+  transition: 0.3s;
+
+}
+
+.skills-list-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 10px;
   font-family: var(--heading-font);
 }
 
-.about .progress .skill .val {
-  float: right;
-  font-style: normal;
-}
-
-.about .progress-bar-wrap {
-  background: color-mix(in srgb, var(--default-color), transparent 90%);
-  height: 10px;
-}
-
-.about .progress-bar {
-  width: 1px;
-  height: 10px;
-  transition: 0.9s;
-  background-color: var(--accent-color);
+.skills-list-title::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 64px;
+  height: 3px;
+  background: var(--accent-color);
+  left: 0;
+  bottom: 0;
 }
 
 .about .about-me h4 {
@@ -794,171 +812,9 @@ section,
 }
 
 .about .about-me p {
-  font-size: 18px;
+  font-size: 24px;
 }
 
-/*--------------------------------------------------------------
-# Resume Section
---------------------------------------------------------------*/
-.resume .resume-title {
-  color: var(--heading-color);
-  font-size: 26px;
-  font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.resume .resume-item {
-  padding: 0 0 20px 20px;
-  margin-top: -2px;
-  border-left: 2px solid var(--accent-color);
-  position: relative;
-}
-
-.resume .resume-item h4 {
-  line-height: 18px;
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-  margin-bottom: 10px;
-}
-
-.resume .resume-item h5 {
-  font-size: 16px;
-  padding: 5px 15px;
-  display: inline-block;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.resume .resume-item ul {
-  padding-left: 20px;
-}
-
-.resume .resume-item ul li {
-  padding-bottom: 10px;
-}
-
-.resume .resume-item:last-child {
-  padding-bottom: 0;
-}
-
-.resume .resume-item::before {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50px;
-  left: -9px;
-  top: 0;
-  background: var(--background-color);
-  border: 2px solid var(--accent-color);
-}
-
-/*--------------------------------------------------------------
-# Services Section
---------------------------------------------------------------*/
-.services .service-item {
-  background-color: var(--surface-color);
-  box-shadow: 0px 5px 90px 0px rgba(0, 0, 0, 0.1);
-  padding: 60px 30px;
-  transition: all ease-in-out 0.3s;
-  border-radius: 18px;
-  border-bottom: 5px solid var(--surface-color);
-  height: 100%;
-}
-
-.services .service-item .icon {
-  color: var(--contrast-color);
-  background: var(--accent-color);
-  margin: 0;
-  width: 64px;
-  height: 64px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  font-size: 28px;
-  transition: ease-in-out 0.3s;
-}
-
-.services .service-item h3 {
-  font-weight: 700;
-  margin: 10px 0 15px 0;
-  font-size: 22px;
-  transition: ease-in-out 0.3s;
-}
-
-.services .service-item p {
-  line-height: 24px;
-  font-size: 14px;
-  margin-bottom: 0;
-}
-
-@media (min-width: 1365px) {
-  .services .service-item:hover {
-    transform: translateY(-10px);
-    border-color: var(--accent-color);
-  }
-
-  .services .service-item:hover h3 {
-    color: var(--accent-color);
-  }
-}
-
-/*--------------------------------------------------------------
-# Stats Section
---------------------------------------------------------------*/
-.stats {
-  position: relative;
-  padding: 120px 0;
-}
-
-.stats img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.stats:before {
-  content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 40%);
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
-.stats .container {
-  position: relative;
-  z-index: 3;
-}
-
-.stats .stats-item {
-  padding: 30px;
-  width: 100%;
-}
-
-.stats .stats-item span {
-  font-size: 48px;
-  display: block;
-  color: var(--default-color);
-  font-weight: 700;
-}
-
-.stats .stats-item p {
-  padding: 0;
-  margin: 0;
-  font-family: var(--heading-font);
-  font-size: 16px;
-  font-weight: 700;
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
-}
 
 /*--------------------------------------------------------------
 # Portfolio Section
@@ -1626,4 +1482,87 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.typing-effect {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 24px !important;  /* טירוף של הקטנה */
+  color: #aaaaaa;
+  font-family: 'Fira Mono', monospace;
+  line-height: 1.2;
+}
+
+
+.line1 {
+  width: 0;
+  animation: typing1 4s steps(120, end) forwards;
+}
+
+.line2 {
+  width: 0;
+  animation: typing2 4s steps(120, end) forwards;
+  animation-delay: 4s;
+}
+
+.line3 {
+  width: 0;
+  animation: typing3 4s steps(120, end) forwards;
+  animation-delay: 8s;
+}
+
+@keyframes typing1 {
+  from { width: 0 }
+  to { width:   100% }
+}
+@keyframes typing2 {
+  from { width: 0 }
+  to { width: 100% }
+}
+@keyframes typing3 {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.resume-btn {
+  margin-top: 50px; /* דחיפה למטה */
+  text-align: center;
+}
+
+.resume-btn .btn {
+  background-color: #5a189a;
+  border: none;
+  padding: 15px 30px; /* הגדלה */
+  font-size: 16px; /* פונט גדול יותר */
+  font-family: 'Poppins', sans-serif; /* פונט יפה */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  box-shadow: 0 0 10px #5a189a;
+  animation: pulse 2s infinite; /* אנימציית נצנוץ */
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px #5a189a; }
+  50% { box-shadow: 0 0 20px #9d4edd; }
+  100% { box-shadow: 0 0 10px #5a189a; }
+}
+
+
+.about .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.about .col-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
 }
